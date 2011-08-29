@@ -27,6 +27,18 @@
 #include "cinder/app/TouchEvent.h"
 #include "cinder/app/AccelEvent.h"
 
+#include "cinder/app/LocationEvent.h"
+#include "cinder/app/HeadingEvent.h"
+#include "cinder/app/DeviceOrientationEvent.h"
+
+typedef enum{
+    AccuracyBestForNavigation,
+    AccuracyBest,
+    AccuracyNearestTenMeters,
+    AccuracyHundredMeters,
+    AccuracyKilometer,
+    AccuracyThreeKilometers,
+}Accuracy;
 
 namespace cinder { namespace app {
 
@@ -47,6 +59,9 @@ class AppCocoaTouch : public App {
 	  private:
 		bool		mEnableMultiTouch;
 	};
+    
+    float  compassDegree;
+    bool   mShouldDisplayHeadingCalibration;
 
 	AppCocoaTouch();
 	virtual ~AppCocoaTouch() {}
@@ -66,7 +81,13 @@ class AppCocoaTouch : public App {
 	const std::vector<TouchEvent::Touch>&	getActiveTouches() const { return mActiveTouches; }	
 	//! Returns a Vec3d of the acceleration direction
 	virtual void		accelerated( AccelEvent event ) {}
-
+    //! Invoked when a new heading is available, Returns the compass degree.
+    virtual void        compassUpdated(HeadingEvent newHeading){}
+    //! Invoked when a new location is available. oldLocation may be nil if there is no previous location available.
+    virtual void        didUpdateToLocation(LocationEvent oldLocation, LocationEvent newLocation){}
+    //! Invoked when the device orientation changes.
+    virtual void        didChangeDeviceOrientation(DeviceOrientationEvent newOrientation){}
+    
 	//! Registers a callback for touchesBegan events. Returns a unique identifier which can be used as a parameter to unregisterTouchesBegan().
 	CallbackId		registerTouchesBegan( std::function<bool (TouchEvent)> callback ) { return mCallbacksTouchesBegan.registerCb( callback ); }
 	//! Registers a callback for touchesBegan events. Returns a unique identifier which can be used as a parameter to unregisterTouchesBegan().
@@ -115,7 +136,24 @@ class AppCocoaTouch : public App {
 	void enableAccelerometer( float updateFrequency = 30.0f, float filterFactor = 0.1f );
 	//! Turns off the accelerometer
 	void disableAccelerometer();
-	
+	//! Enable monitoring the device orientation
+    void enableDeviceOrientationSupport();
+    //! Returns the device orientation
+    DeviceOrientationEvent getCurrentDeviceOrientation();
+    //! Enables the device's location services
+    void enableLocationSevices();
+    //! Set displayHeadingCalibration to TRUE to display heading calibration info. The display will remain until heading is calibrated. 
+    void shouldDisplayHeadingCalibration(bool displayHeadingCalibration);
+    //! The desired location accuracy. The location service will try its best to achieve your desired accuracy.
+    void setAccuracyLevelDesired(Accuracy accuracy);
+    float getAccuracyLevelDesired();
+    //! Specifies the minimum update distance in meters. Client will not be notified of movements of less than the stated value, unless the accuracy has improved.
+    void setDistanceFilter(float distanceFilter);
+    float getDistanceFilter();
+    //! Specifies the minimum amount of change in degrees needed for a heading service update. Client will not be notified of updates less than the stated filter value.
+    void setHeadingFilter(float headingFilter);
+    float getHeadingFilter();
+    
 	//! Returns the maximum frame-rate the App will attempt to maintain.
 	virtual float		getFrameRate() const;
 	//! Sets the maximum frame-rate the App will attempt to maintain.
@@ -158,11 +196,41 @@ class AppCocoaTouch : public App {
 	void		privateTouchesEnded__( const TouchEvent &event );
 	void		privateSetActiveTouches__( const std::vector<TouchEvent::Touch> &touches ) { mActiveTouches = touches; }
 	void		privateAccelerated__( const Vec3f &direction );
+    void        privateCompassUpdated__(const float magneticHeading, const float trueHeading, const float headingAccuracy, const char *description, const Vec3f &rawGeoMagnetismVector);
+    void        privateDidUpdateToLocation__(const float oldX, const float oldY, const float oldSpeed, const float oldAltitude, const float oldHorizontalAccuracy, const float oldVerticalAccuracy,
+                                             const float newX, const float newY, const float newSpeed, const float newAltitude, const float newHorizontalAccuracy, const float newVerticalAccuracy);
+    void        privateDidChangedDeviceOrientation__();
 	//! \endcond
 
 	// The state is contained in a struct in order to avoid this .h needing to be compiled as Objective-C++
 	std::shared_ptr<AppCocoaTouchState>		mState;
 
+    //! Sets whether the active App is in full-screen mode based on \a fullScreen
+    void hideStatusBar(bool aHideStatusBar);
+    
+    //! CLLocationManager methods
+    
+    //! start updating heading
+    void startUpdatingHeading();
+    //! stop updating heading
+    void stopUpdatingHeading();
+    //! start updating location
+    void startUpdatingLocation();
+    //! stop updating location
+    void stopUpdatingLocation();
+    
+    //! Returns YES if the device supports the heading service, otherwise NO.
+    bool headingAvailable();
+    
+    //! Determines whether the user has location services enabled.
+    bool locationServicesEnabled();
+    
+    //! Return the last location received. Will be nil until a location has been received.
+    LocationEvent getLocation();
+    
+    //! Returns the lateral distance between two locations.
+    float distanceBetweenLocations(LocationEvent locationA, LocationEvent locationB);
+    
   private:
 	friend void		setupCocoaTouchWindow( AppCocoaTouch *app );
 	

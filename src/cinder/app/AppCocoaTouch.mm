@@ -27,7 +27,8 @@
 namespace cinder { namespace app {
 
 AppCocoaTouch*				AppCocoaTouch::sInstance = 0;
-
+CLLocationManager           *locationManager;
+    
 // This struct serves as a compile firewall for maintaining AppCocoaTouch state information
 struct AppCocoaTouchState {
 	CinderViewCocoaTouch		*mCinderView;
@@ -106,6 +107,24 @@ void setupCocoaTouchWindow( AppCocoaTouch *app )
 	app->privateAccelerated__( direction );
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    app->privateDidUpdateToLocation__(oldLocation.coordinate.latitude, oldLocation.coordinate.longitude, oldLocation.speed, oldLocation.altitude, oldLocation.horizontalAccuracy, oldLocation.verticalAccuracy,
+                                      newLocation.coordinate.latitude, newLocation.coordinate.longitude, newLocation.speed, newLocation.altitude, newLocation.horizontalAccuracy, newLocation.verticalAccuracy);
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+    ci::Vec3f rawGeoMagnetismVector(newHeading.x, newHeading.y, newHeading.z);
+    const char *tmp = [newHeading.description UTF8String];
+    app->privateCompassUpdated__(newHeading.magneticHeading, newHeading.trueHeading, newHeading.headingAccuracy, tmp, rawGeoMagnetismVector);
+}
+
+- (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
+{
+    return app->mShouldDisplayHeadingCalibration;
+}
+
 - (void) dealloc
 {
 //	[window release];
@@ -168,6 +187,120 @@ void AppCocoaTouch::disableAccelerometer() {
 	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
 }
 
+    void AppCocoaTouch::enableDeviceOrientationSupport(){
+        [[NSNotificationCenter defaultCenter] addObserverForName:@"UIDeviceOrientationDidChangeNotification"
+                                                          object:nil 
+                                                           queue:nil 
+                                                      usingBlock: ^(NSNotification *notification) {
+                                                          if (UIDeviceOrientationIsValidInterfaceOrientation([[UIDevice currentDevice] orientation])) 
+                                                          {
+                                                              // let's always make sure the task bar is shown on the correct side of the device            
+                                                              //[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientation([[UIDevice currentDevice] orientation]);
+                                                              privateDidChangedDeviceOrientation__();                                                          
+                                                          }
+                                                      }];
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        
+    }
+    
+    DeviceOrientationEvent AppCocoaTouch::getCurrentDeviceOrientation(){
+        Orientation currentOrientation;
+        switch ([[UIDevice currentDevice] orientation]) {
+            case UIDeviceOrientationUnknown:
+                currentOrientation=DeviceOrientationUnknown;
+                break;
+            case UIDeviceOrientationPortrait:
+                currentOrientation=DeviceOrientationPortrait;
+                break;
+            case UIDeviceOrientationPortraitUpsideDown:
+                currentOrientation=DeviceOrientationPortraitUpsideDown;
+                break;
+            case UIDeviceOrientationLandscapeLeft:
+                currentOrientation=DeviceOrientationLandscapeLeft;
+                break;
+            case DeviceOrientationLandscapeRight:
+                currentOrientation=DeviceOrientationLandscapeRight;
+                break;
+            case UIDeviceOrientationFaceUp:
+                currentOrientation=DeviceOrientationFaceUp;
+                break;
+            case UIDeviceOrientationFaceDown:
+                currentOrientation=DeviceOrientationFaceDown;
+                break;
+            default:
+                currentOrientation=DeviceOrientationUnknown;
+                break;
+        }
+        DeviceOrientationEvent deviceOrientation(currentOrientation);
+        return deviceOrientation;
+    }
+    void AppCocoaTouch::enableLocationSevices() {
+        CinderAppDelegateIPhone *appDel = (CinderAppDelegateIPhone *)[[UIApplication sharedApplication] delegate];
+        locationManager=[[[CLLocationManager alloc] init] retain];
+        locationManager.delegate=appDel;
+        NSLog(@"compass enabled");
+    }    
+    
+    void AppCocoaTouch::shouldDisplayHeadingCalibration(bool displayHeadingCalibration)
+    {
+        mShouldDisplayHeadingCalibration=displayHeadingCalibration;
+    }
+    
+    void AppCocoaTouch::setAccuracyLevelDesired(Accuracy accuracy)
+    {
+        CLLocationAccuracy locationManagerAccuracy;
+        switch (accuracy) {
+            case AccuracyBestForNavigation:
+                locationManagerAccuracy=kCLLocationAccuracyBestForNavigation;
+                break;
+            case AccuracyBest:
+                locationManagerAccuracy=kCLLocationAccuracyBest;
+                break;
+            case AccuracyNearestTenMeters:
+                locationManagerAccuracy=kCLLocationAccuracyNearestTenMeters;
+                break;
+            case AccuracyHundredMeters:
+                locationManagerAccuracy=kCLLocationAccuracyHundredMeters;
+                break;
+            case AccuracyKilometer:
+                locationManagerAccuracy=kCLLocationAccuracyKilometer;
+                break;
+            case AccuracyThreeKilometers:
+                locationManagerAccuracy=kCLLocationAccuracyThreeKilometers;
+                break;
+            default:
+                break;
+        }
+        locationManager.desiredAccuracy=locationManagerAccuracy;
+        NSLog(@"The desired accuracy is %f",locationManager.desiredAccuracy);
+    }
+    
+    float AppCocoaTouch::getAccuracyLevelDesired()
+    {
+        return locationManager.desiredAccuracy;
+    }
+    
+    void AppCocoaTouch::setDistanceFilter(float distanceFilter)
+    {
+        locationManager.distanceFilter=distanceFilter;
+    }
+    
+    float AppCocoaTouch::getDistanceFilter()
+    {
+        return locationManager.distanceFilter;
+    }
+    
+    void AppCocoaTouch::setHeadingFilter(float headingFilter)
+    {
+        locationManager.headingFilter=headingFilter;
+    }
+    
+    float AppCocoaTouch::getHeadingFilter()
+    {
+        return locationManager.headingFilter;
+    }
+
+    
 //! Returns the maximum frame-rate the App will attempt to maintain.
 float AppCocoaTouch::getFrameRate() const
 {
@@ -253,5 +386,119 @@ void AppCocoaTouch::privateAccelerated__( const Vec3f &direction )
 	mLastAccel = filtered;
 	mLastRawAccel = direction;
 }
+
+    void AppCocoaTouch::privateCompassUpdated__(const float magneticHeading, const float trueHeading, const float headingAccuracy, const char *description, const Vec3f &rawGeoMagnetismVector)
+    {
+        HeadingEvent newHeading(magneticHeading, trueHeading, headingAccuracy, description, rawGeoMagnetismVector);
+        compassUpdated(newHeading);
+    }
+    
+    void AppCocoaTouch::privateDidUpdateToLocation__(const float oldLatitude, const float oldLongitude, const float oldSpeed, const float oldAltitude, const float oldHorizontalAccuracy, const float oldVerticalAccuracy,
+                                                     const float newLatitude, const float newLongitude, const float newSpeed, const float newAltitude, const float newHorizontalAccuracy, const float newVerticalAccuracy){
+        LocationCoordinate2D oldLocationCoordinate2D;
+        oldLocationCoordinate2D.latitude=oldLatitude;
+        oldLocationCoordinate2D.longitude=oldLongitude;
+        LocationCoordinate2D newLocationCoordinate2D;
+        newLocationCoordinate2D.latitude=newLatitude;
+        newLocationCoordinate2D.longitude=newLongitude;
+        
+        LocationEvent newLocation(newLocationCoordinate2D,newSpeed, newAltitude, newHorizontalAccuracy, newVerticalAccuracy);
+        LocationEvent oldLocation(oldLocationCoordinate2D,oldSpeed, oldAltitude, oldHorizontalAccuracy, oldVerticalAccuracy);
+        didUpdateToLocation(oldLocation,newLocation);
+    }
+    
+    void AppCocoaTouch::privateDidChangedDeviceOrientation__()
+    {
+        Orientation currentOrientation;
+        switch ([[UIDevice currentDevice] orientation]) {
+            case UIDeviceOrientationUnknown:
+                currentOrientation=DeviceOrientationUnknown;
+                break;
+            case UIDeviceOrientationPortrait:
+                currentOrientation=DeviceOrientationPortrait;
+                break;
+            case UIDeviceOrientationPortraitUpsideDown:
+                currentOrientation=DeviceOrientationPortraitUpsideDown;
+                break;
+            case UIDeviceOrientationLandscapeLeft:
+                currentOrientation=DeviceOrientationLandscapeLeft;
+                break;
+            case DeviceOrientationLandscapeRight:
+                currentOrientation=DeviceOrientationLandscapeRight;
+                break;
+            case UIDeviceOrientationFaceUp:
+                currentOrientation=DeviceOrientationFaceUp;
+                break;
+            case UIDeviceOrientationFaceDown:
+                currentOrientation=DeviceOrientationFaceDown;
+                break;
+            default:
+                currentOrientation=DeviceOrientationUnknown;
+                break;
+        }
+        DeviceOrientationEvent deviceOrientation(currentOrientation);
+        didChangeDeviceOrientation(deviceOrientation);
+    }
+    
+    void AppCocoaTouch::hideStatusBar(bool aHideStatusBar)
+    {
+        [UIApplication sharedApplication].statusBarHidden=aHideStatusBar;
+    }
+
+    //!CLLocationMethod
+    void AppCocoaTouch::startUpdatingHeading()
+    {
+        [locationManager startUpdatingHeading];
+    }
+    
+    void AppCocoaTouch::stopUpdatingHeading()
+    {
+        [locationManager stopUpdatingHeading];
+    }
+    
+    void AppCocoaTouch::startUpdatingLocation()
+    {
+        [locationManager startUpdatingLocation];
+    }
+    
+    void AppCocoaTouch::stopUpdatingLocation()
+    {
+        [locationManager stopUpdatingLocation];
+    }
+    
+    bool AppCocoaTouch::headingAvailable()
+    {
+        return [CLLocationManager headingAvailable];
+    }
+    
+    bool AppCocoaTouch::locationServicesEnabled()
+    {
+        return [CLLocationManager locationServicesEnabled];
+    }
+    
+    LocationEvent AppCocoaTouch::getLocation()
+    {
+        NSLog(@"The distance filter is %f",locationManager.distanceFilter);
+        LocationCoordinate2D locationCoordinate2D;
+        locationCoordinate2D.latitude=locationManager.location.coordinate.latitude;
+        locationCoordinate2D.longitude=locationManager.location.coordinate.longitude;
+        LocationEvent newLocation(locationCoordinate2D,locationManager.location.speed, locationManager.location.altitude, locationManager.location.horizontalAccuracy, locationManager.location.verticalAccuracy);
+        return newLocation;
+    }
+    
+    
+    float AppCocoaTouch::distanceBetweenLocations(LocationEvent locationA, LocationEvent locationB)
+    {
+        CLLocation *mLocationA=[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(locationA.getLatitude(), locationA.getLongitude())
+                                                             altitude:locationA.getAltitude() 
+                                                   horizontalAccuracy:kCLLocationAccuracyBest verticalAccuracy:kCLLocationAccuracyBest 
+                                                            timestamp:[NSDate date]];
+        CLLocation *mLocationB=[[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(locationB.getLatitude(), locationB.getLongitude())
+                                                             altitude:locationB.getAltitude() 
+                                                   horizontalAccuracy:kCLLocationAccuracyBest verticalAccuracy:kCLLocationAccuracyBest 
+                                                            timestamp:[NSDate date]]; 
+        float distance=[mLocationA distanceFromLocation:mLocationB];
+        return distance;
+    }
 
 } } // namespace cinder::app
