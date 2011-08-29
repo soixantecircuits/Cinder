@@ -294,8 +294,6 @@
 		009D6AFF1157FC8B0037C77C /* CinderViewCocoaTouch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 009D6AFD1157FC8B0037C77C /* CinderViewCocoaTouch.mm */; };
 		009D6B011157FCA60037C77C /* CinderViewCocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 009D6B001157FCA60037C77C /* CinderViewCocoaTouch.h */; };
 		009D6B021157FCA60037C77C /* CinderViewCocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 009D6B001157FCA60037C77C /* CinderViewCocoaTouch.h */; };
-		009D6B171157FCFB0037C77C /* AppCocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 009D6B161157FCFB0037C77C /* AppCocoaTouch.h */; };
-		009D6B181157FCFB0037C77C /* AppCocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 009D6B161157FCFB0037C77C /* AppCocoaTouch.h */; };
 		009D6B1C1157FD3A0037C77C /* AppCocoaTouch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 009D6B1B1157FD3A0037C77C /* AppCocoaTouch.mm */; };
 		009D6B1D1157FD3A0037C77C /* AppCocoaTouch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 009D6B1B1157FD3A0037C77C /* AppCocoaTouch.mm */; };
 		009EE46E0F7A9F6700F17CB1 /* PolyLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 009EE46D0F7A9F6700F17CB1 /* PolyLine.h */; };
@@ -592,6 +590,20 @@
 		43ED153D1221DF6C003AEB0B /* UrlImplCocoa.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43ED0FDD12209488003AEB0B /* UrlImplCocoa.mm */; };
 		5391FD680E957646002A13D5 /* KeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5391FD670E957646002A13D5 /* KeyEvent.h */; };
 		5391FE660E95CB01002A13D5 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D6A5FE840307C02AAC07 /* AppKit.framework */; };
+		972DB32E140BA351004D85EA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972DB32D140BA351004D85EA /* CoreLocation.framework */; };
+		972DB330140BA361004D85EA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972DB32D140BA351004D85EA /* CoreLocation.framework */; };
+		972DB33A140BC5C5004D85EA /* HeadingEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB338140BC5C5004D85EA /* HeadingEvent.h */; };
+		972DB33B140BC5C5004D85EA /* HeadingEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB338140BC5C5004D85EA /* HeadingEvent.h */; };
+		972DB33C140BC5C5004D85EA /* LocationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB339140BC5C5004D85EA /* LocationEvent.h */; };
+		972DB33D140BC5C5004D85EA /* LocationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB339140BC5C5004D85EA /* LocationEvent.h */; };
+		972DB33F140BC65C004D85EA /* DeviceOrientationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB33E140BC65C004D85EA /* DeviceOrientationEvent.h */; };
+		972DB340140BC65C004D85EA /* DeviceOrientationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB33E140BC65C004D85EA /* DeviceOrientationEvent.h */; };
+		972DB342140BC6D9004D85EA /* AppCocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB341140BC6D9004D85EA /* AppCocoaTouch.h */; };
+		972DB343140BC6D9004D85EA /* AppCocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB341140BC6D9004D85EA /* AppCocoaTouch.h */; };
+		972DB349140BCBF9004D85EA /* TextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB348140BCBF9004D85EA /* TextField.h */; };
+		972DB34A140BCBF9004D85EA /* TextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB348140BCBF9004D85EA /* TextField.h */; };
+		972DB34C140BCC3C004D85EA /* TextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 972DB34B140BCC3C004D85EA /* TextField.mm */; };
+		972DB34D140BCC3C004D85EA /* TextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 972DB34B140BCC3C004D85EA /* TextField.mm */; };
 		C70E19FF106AA38700E63577 /* Buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C70E19FE106AA38700E63577 /* Buffer.h */; };
 		C70E1A03106AA39D00E63577 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C70E1A01106AA39D00E63577 /* Buffer.cpp */; };
 		C727BFE5121B3AE600192073 /* Capture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 007438400EA7924F005DD3E6 /* Capture.cpp */; };
@@ -785,7 +797,6 @@
 		009D6AF01157FB860037C77C /* AppImplCocoaTouchRendererGl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppImplCocoaTouchRendererGl.mm; path = app/AppImplCocoaTouchRendererGl.mm; sourceTree = "<group>"; };
 		009D6AFD1157FC8B0037C77C /* CinderViewCocoaTouch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CinderViewCocoaTouch.mm; path = app/CinderViewCocoaTouch.mm; sourceTree = "<group>"; };
 		009D6B001157FCA60037C77C /* CinderViewCocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CinderViewCocoaTouch.h; path = app/CinderViewCocoaTouch.h; sourceTree = "<group>"; };
-		009D6B161157FCFB0037C77C /* AppCocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppCocoaTouch.h; path = app/AppCocoaTouch.h; sourceTree = "<group>"; };
 		009D6B1B1157FD3A0037C77C /* AppCocoaTouch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppCocoaTouch.mm; path = app/AppCocoaTouch.mm; sourceTree = "<group>"; };
 		009EE46D0F7A9F6700F17CB1 /* PolyLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyLine.h; sourceTree = "<group>"; };
 		009EE4710F7A9FAC00F17CB1 /* PolyLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PolyLine.cpp; sourceTree = "<group>"; };
@@ -898,6 +909,13 @@
 		43ED0FDD12209488003AEB0B /* UrlImplCocoa.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UrlImplCocoa.mm; sourceTree = "<group>"; };
 		43ED0FE11220949A003AEB0B /* UrlImplCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlImplCocoa.h; sourceTree = "<group>"; };
 		5391FD670E957646002A13D5 /* KeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyEvent.h; path = app/KeyEvent.h; sourceTree = "<group>"; };
+		972DB32D140BA351004D85EA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		972DB338140BC5C5004D85EA /* HeadingEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeadingEvent.h; path = app/HeadingEvent.h; sourceTree = "<group>"; };
+		972DB339140BC5C5004D85EA /* LocationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationEvent.h; path = app/LocationEvent.h; sourceTree = "<group>"; };
+		972DB33E140BC65C004D85EA /* DeviceOrientationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceOrientationEvent.h; path = app/DeviceOrientationEvent.h; sourceTree = "<group>"; };
+		972DB341140BC6D9004D85EA /* AppCocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppCocoaTouch.h; path = app/AppCocoaTouch.h; sourceTree = "<group>"; };
+		972DB348140BCBF9004D85EA /* TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextField.h; path = app/TextField.h; sourceTree = "<group>"; };
+		972DB34B140BCC3C004D85EA /* TextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TextField.mm; path = app/TextField.mm; sourceTree = "<group>"; };
 		C70E19FE106AA38700E63577 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		C70E1A01106AA39D00E63577 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
 		C7792FAE119A185000521786 /* CocoaCaConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CocoaCaConverter.cpp; sourceTree = "<group>"; };
@@ -942,6 +960,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				972DB32E140BA351004D85EA /* CoreLocation.framework in Frameworks */,
 				C7B93060121C952400093AFE /* CoreVideo.framework in Frameworks */,
 				C7B9305F121C951400093AFE /* CoreMedia.framework in Frameworks */,
 				007050AF1114F93F003FCAE4 /* AppKit.framework in Frameworks */,
@@ -959,6 +978,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				972DB330140BA361004D85EA /* CoreLocation.framework in Frameworks */,
 				C7B93061121C952800093AFE /* CoreVideo.framework in Frameworks */,
 				C7B9305E121C950800093AFE /* AVFoundation.framework in Frameworks */,
 				C7B9303F121C946800093AFE /* CoreMedia.framework in Frameworks */,
@@ -997,6 +1017,9 @@
 		002419CC0E8035CA004D34EB /* app */ = {
 			isa = PBXGroup;
 			children = (
+				972DB33E140BC65C004D85EA /* DeviceOrientationEvent.h */,
+				972DB338140BC5C5004D85EA /* HeadingEvent.h */,
+				972DB339140BC5C5004D85EA /* LocationEvent.h */,
 				0049C1B31010E5A40015B4B9 /* Renderer.h */,
 				0088773B0F96671600FD55C5 /* FileDropEvent.h */,
 				5391FD670E957646002A13D5 /* KeyEvent.h */,
@@ -1008,9 +1031,10 @@
 				002419CD0E8035D3004D34EB /* App.h */,
 				003FABA61290ED38002D6860 /* AppNative.h */,
 				00B4F3E00F5394C500B75296 /* AppBasic.h */,
+				972DB348140BCBF9004D85EA /* TextField.h */,
 				00AA5C860F64851C009CD67F /* AppScreenSaver.h */,
 				000EF9BB0F55014A004646A3 /* AppCinderView.h */,
-				009D6B161157FCFB0037C77C /* AppCocoaTouch.h */,
+				972DB341140BC6D9004D85EA /* AppCocoaTouch.h */,
 				002419CE0E8035D3004D34EB /* AppImplCocoaBasic.h */,
 				002419FA0E8036A7004D34EB /* AppImplCocoaRendererGl.h */,
 				00E0B49E0F604FCF002C8FBD /* AppImplCocoaRendererQuartz.h */,
@@ -1024,6 +1048,7 @@
 		00241A0A0E803708004D34EB /* app */ = {
 			isa = PBXGroup;
 			children = (
+				972DB34B140BCC3C004D85EA /* TextField.mm */,
 				007B09830E957B9A0052257E /* KeyEvent.cpp */,
 				002419D30E8035E1004D34EB /* App.cpp */,
 				00B4F3E60F53955000B75296 /* AppBasic.cpp */,
@@ -1444,6 +1469,7 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				972DB32D140BA351004D85EA /* CoreLocation.framework */,
 				C7BA40880FA8C13A00AADC07 /* AudioToolbox.framework */,
 				C7BA408A0FA8C13A00AADC07 /* AudioUnit.framework */,
 				C7BA408C0FA8C13A00AADC07 /* CoreAudio.framework */,
@@ -1605,7 +1631,6 @@
 				0005630711513B1D00ECFD91 /* AppImplCocoaTouchRendererQuartz.h in Headers */,
 				009D6AEF1157FB340037C77C /* AppImplCocoaTouchRendererGl.h in Headers */,
 				009D6B021157FCA60037C77C /* CinderViewCocoaTouch.h in Headers */,
-				009D6B181157FCFB0037C77C /* AppCocoaTouch.h in Headers */,
 				00E71636115919EB0071E506 /* ImageSourceFileUiImage.h in Headers */,
 				0039FBAA115AE63600BA0BAD /* ImageTargetFileUiImage.h in Headers */,
 				0039FD26115B125400BA0BAD /* CinderCocoaTouch.h in Headers */,
@@ -1638,6 +1663,11 @@
 				00A114221355369A00081873 /* tesselator.h in Headers */,
 				4354C47D1357BBF200120EE3 /* TextureFont.h in Headers */,
 				00A1153A1357F42400081873 /* Easing.h in Headers */,
+				972DB33A140BC5C5004D85EA /* HeadingEvent.h in Headers */,
+				972DB33C140BC5C5004D85EA /* LocationEvent.h in Headers */,
+				972DB33F140BC65C004D85EA /* DeviceOrientationEvent.h in Headers */,
+				972DB342140BC6D9004D85EA /* AppCocoaTouch.h in Headers */,
+				972DB349140BCBF9004D85EA /* TextField.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1725,7 +1755,6 @@
 				0005630811513B1D00ECFD91 /* AppImplCocoaTouchRendererQuartz.h in Headers */,
 				009D6AEE1157FB340037C77C /* AppImplCocoaTouchRendererGl.h in Headers */,
 				009D6B011157FCA60037C77C /* CinderViewCocoaTouch.h in Headers */,
-				009D6B171157FCFB0037C77C /* AppCocoaTouch.h in Headers */,
 				00E71635115919EB0071E506 /* ImageSourceFileUiImage.h in Headers */,
 				0039FBA9115AE63600BA0BAD /* ImageTargetFileUiImage.h in Headers */,
 				0039FD25115B125400BA0BAD /* CinderCocoaTouch.h in Headers */,
@@ -1757,6 +1786,11 @@
 				00A114311355369A00081873 /* tesselator.h in Headers */,
 				4354C47E1357BBF300120EE3 /* TextureFont.h in Headers */,
 				00A1153B1357F42400081873 /* Easing.h in Headers */,
+				972DB33B140BC5C5004D85EA /* HeadingEvent.h in Headers */,
+				972DB33D140BC5C5004D85EA /* LocationEvent.h in Headers */,
+				972DB340140BC65C004D85EA /* DeviceOrientationEvent.h in Headers */,
+				972DB343140BC6D9004D85EA /* AppCocoaTouch.h in Headers */,
+				972DB34A140BCBF9004D85EA /* TextField.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2068,6 +2102,7 @@
 				00A1141E1355369A00081873 /* sweep.c in Sources */,
 				00A114201355369A00081873 /* tess.c in Sources */,
 				4354C4811357BC1100120EE3 /* TextureFont.cpp in Sources */,
+				972DB34C140BCC3C004D85EA /* TextField.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2154,6 +2189,7 @@
 				00A1142D1355369A00081873 /* sweep.c in Sources */,
 				00A1142F1355369A00081873 /* tess.c in Sources */,
 				4354C4821357BC1100120EE3 /* TextureFont.cpp in Sources */,
+				972DB34D140BCC3C004D85EA /* TextField.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
