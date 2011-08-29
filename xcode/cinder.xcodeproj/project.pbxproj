@@ -600,6 +600,10 @@
 		972DB340140BC65C004D85EA /* DeviceOrientationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB33E140BC65C004D85EA /* DeviceOrientationEvent.h */; };
 		972DB342140BC6D9004D85EA /* AppCocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB341140BC6D9004D85EA /* AppCocoaTouch.h */; };
 		972DB343140BC6D9004D85EA /* AppCocoaTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB341140BC6D9004D85EA /* AppCocoaTouch.h */; };
+		972DB349140BCBF9004D85EA /* TextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB348140BCBF9004D85EA /* TextField.h */; };
+		972DB34A140BCBF9004D85EA /* TextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 972DB348140BCBF9004D85EA /* TextField.h */; };
+		972DB34C140BCC3C004D85EA /* TextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 972DB34B140BCC3C004D85EA /* TextField.mm */; };
+		972DB34D140BCC3C004D85EA /* TextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 972DB34B140BCC3C004D85EA /* TextField.mm */; };
 		C70E19FF106AA38700E63577 /* Buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C70E19FE106AA38700E63577 /* Buffer.h */; };
 		C70E1A03106AA39D00E63577 /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C70E1A01106AA39D00E63577 /* Buffer.cpp */; };
 		C727BFE5121B3AE600192073 /* Capture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 007438400EA7924F005DD3E6 /* Capture.cpp */; };
@@ -910,6 +914,8 @@
 		972DB339140BC5C5004D85EA /* LocationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationEvent.h; path = app/LocationEvent.h; sourceTree = "<group>"; };
 		972DB33E140BC65C004D85EA /* DeviceOrientationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceOrientationEvent.h; path = app/DeviceOrientationEvent.h; sourceTree = "<group>"; };
 		972DB341140BC6D9004D85EA /* AppCocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppCocoaTouch.h; path = app/AppCocoaTouch.h; sourceTree = "<group>"; };
+		972DB348140BCBF9004D85EA /* TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextField.h; path = app/TextField.h; sourceTree = "<group>"; };
+		972DB34B140BCC3C004D85EA /* TextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TextField.mm; path = app/TextField.mm; sourceTree = "<group>"; };
 		C70E19FE106AA38700E63577 /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buffer.h; sourceTree = "<group>"; };
 		C70E1A01106AA39D00E63577 /* Buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
 		C7792FAE119A185000521786 /* CocoaCaConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CocoaCaConverter.cpp; sourceTree = "<group>"; };
@@ -1025,6 +1031,7 @@
 				002419CD0E8035D3004D34EB /* App.h */,
 				003FABA61290ED38002D6860 /* AppNative.h */,
 				00B4F3E00F5394C500B75296 /* AppBasic.h */,
+				972DB348140BCBF9004D85EA /* TextField.h */,
 				00AA5C860F64851C009CD67F /* AppScreenSaver.h */,
 				000EF9BB0F55014A004646A3 /* AppCinderView.h */,
 				972DB341140BC6D9004D85EA /* AppCocoaTouch.h */,
@@ -1041,6 +1048,7 @@
 		00241A0A0E803708004D34EB /* app */ = {
 			isa = PBXGroup;
 			children = (
+				972DB34B140BCC3C004D85EA /* TextField.mm */,
 				007B09830E957B9A0052257E /* KeyEvent.cpp */,
 				002419D30E8035E1004D34EB /* App.cpp */,
 				00B4F3E60F53955000B75296 /* AppBasic.cpp */,
@@ -1659,6 +1667,7 @@
 				972DB33C140BC5C5004D85EA /* LocationEvent.h in Headers */,
 				972DB33F140BC65C004D85EA /* DeviceOrientationEvent.h in Headers */,
 				972DB342140BC6D9004D85EA /* AppCocoaTouch.h in Headers */,
+				972DB349140BCBF9004D85EA /* TextField.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1781,6 +1790,7 @@
 				972DB33D140BC5C5004D85EA /* LocationEvent.h in Headers */,
 				972DB340140BC65C004D85EA /* DeviceOrientationEvent.h in Headers */,
 				972DB343140BC6D9004D85EA /* AppCocoaTouch.h in Headers */,
+				972DB34A140BCBF9004D85EA /* TextField.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2092,6 +2102,7 @@
 				00A1141E1355369A00081873 /* sweep.c in Sources */,
 				00A114201355369A00081873 /* tess.c in Sources */,
 				4354C4811357BC1100120EE3 /* TextureFont.cpp in Sources */,
+				972DB34C140BCC3C004D85EA /* TextField.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2178,6 +2189,7 @@
 				00A1142D1355369A00081873 /* sweep.c in Sources */,
 				00A1142F1355369A00081873 /* tess.c in Sources */,
 				4354C4821357BC1100120EE3 /* TextureFont.cpp in Sources */,
+				972DB34D140BCC3C004D85EA /* TextField.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

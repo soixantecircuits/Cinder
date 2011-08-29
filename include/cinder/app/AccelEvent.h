@@ -78,6 +78,12 @@ class AccelEvent : public Event {
 	{
 		return Quatf( Vec3f( 0, -1, 0 ), mData.normalized() ).toMatrix44();
 	}
+    
+    //! Returns a matrix representing a transformation from an upright orientation mVec to the current orientation
+    Matrix44f getMatrixFromVectorOrientation( Vec3f mVec) const
+	{
+		return Quatf( mVec, mData.normalized() ).toMatrix44();
+	}
 	
   private:
 	Vec3f		mData, mPrevData;
